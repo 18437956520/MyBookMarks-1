@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <header></header>
+    <main>
+
+        <div class="wrapper" id="main"></div>
+    </main>
+    <footer></footer>
+    <script>
+        // 1.初始化数据
+        var keys = {
+            '0': {
+                0: 'q',
+                1: 'w',
+                2: 'e',
+                3: 'r',
+                4: 't',
+                5: 'y',
+                6: 'u',
+                7: 'i',
+                8: 'o',
+                9: 'p',
+                length: 10
+            },
+            '1': {
+                0: 'a',
+                1: 's',
+                2: 'd',
+                3: 'f',
+                4: 'g',
+                5: 'h',
+                6: 'j',
+                7: 'k',
+                8: 'l',
+                length: 9
+            },
+            '2': {
+                0: 'z',
+                1: 'x',
+                2: 'c',
+                3: 'v',
+                4: 'b',
+                5: 'n',
+                6: 'm',
+                length: 7
+            },
+            length: 3
+        }
+
+        var hash = {
+            q: 'im.qq.com',
+            w: 'weibo.com',
+            e: 'ele.me',
+            r: 'yyets.com',
+            t: 'taobao.com',
+            y: 'www.uniqlo.cn',
+            u: 'uu.163.com',
+            i: 'iqiyi.com',
+            o: 'oppo.com',
+            p: 'www.pptv.com',
+            a: 'apple.com',
+            s: 'sg.qq.com',
+            d: 'douyu.com',
+            f: 'fanyi.baidu.com',
+            g: 'ditu.amap.com',
+            h: 'huawei.com',
+            j: 'www.jd.com',
+            k: 'kaola.com',
+            l: 'lol.qq.com',
+            z: 'zhihu.com',
+            x: 'xiedaimala.com',
+            c: 'cctv.com',
+            v: 'vivo.com',
+            b: 'baidu.com',
+            n: 'nba.com',
+            m: 'mail.qq.com',
+        }
+
+        // var hashInLocalStorage = JSON.parse(localStorage.getItem('ccc') || 'null')
+        // if (hashInLocalStorage){
+        //     hash = hashInLocalStorage} 取出ccc中对应hash
+        // 2.生成键盘
+        // 遍历 keys 生成 kbd 标签
+        function tag(tagName) {
+            return document.createElement(tagName)
+        }
+
+        for (var index = 0; index < keys['length']; index = index + 1) {
+            var div = tag('div')
+            div.className = 'row'
+            main.appendChild(div)
+            var row = keys[index]
+            for (var index2 = 0; index2 < row['length']; index2 = index2 + 1) {
+                var kbd = tag('kbd')
+                var span = tag('span')
+                span.textContent = row[index2]
+                kbd.appendChild(span)
+                span.className = 'text'
+                kbd.className = 'key'
+                var button = tag('button')
+                button.textContent = ''
+                button.id = row[index2]
+                var img = tag('img')
+                // if(hash[row[index2]]){
+                //     img.src = 'http://' + hash[row[index2]] + '/favicon.ico'    
+                // }else{
+                //     img.src = '###'
+                // } 如果没有则 另一张图
+                // img.onerror = function(xxx){
+                //    xxx.target.src = '###'
+                //} 如果请求失败 则另一张图
+                img.src = 'http://' + hash[row[index2]] + '/favicon.ico'
+                button.onclick = function (kkkkkk) {
+                    var key = kkkkkk.target.id
+                    var x = prompt('Please give me a website!')
+                    hash[key] = x
+                    //localStorage.setItem('ccc', JSON.stringify(hash))  当hash被修改 存储到ccc中      
+                }
+                kbd.appendChild(img)
+                kbd.appendChild(button)
+                div.appendChild(kbd)
+            }
+        }
+
+        // 3.监听键盘
+        document.onkeypress = function (kkkkkk) {
+            key = kkkkkk['key']
+            website = hash[key]
+            window.open('http://' + website, '_blank')
+        }
+    </script>
+</body>
+
+</html>
